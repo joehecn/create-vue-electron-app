@@ -1,6 +1,6 @@
 {
   "name": "create-vue-electron-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "author": "Joe He",
   "description": "create an app by vue3 and electron quickly!",
