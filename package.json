@@ -1,12 +1,33 @@
 {
   "name": "create-vue-electron-app",
   "version": "1.0.0",
-  "description": "",
+  "license": "MIT",
+  "author": "Joe He",
+  "description": "create an app by vue3 and electron quickly!",
+  "keywords": [
+    "vue3",
+    "electron",
+    "vite"
+  ],
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "bin": {
+    "create-vue-electron-app": "index.js",
+    "cvea": "index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "files": [
+    "index.js",
+    "template"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joehecn/create-vue-electron-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joehecn/create-vue-electron-app/issues"
+  },
+  "homepage": "https://github.com/joehecn/create-vue-electron-app#readme",
+  "dependencies": {
+    "fs-extra": "^9.0.1",
+    "minimist": "^1.2.5"
+  }
 }
