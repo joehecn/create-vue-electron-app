@@ -1,15 +1,63 @@
 {
-  "name": "vite-starter",
-  "version": "0.0.0",
+  "name": "vue-electron-app",
+  "version": "1.0.2",
+  "main": "dist/main/build.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build"
+    "dev": "concurrently -n=vue,ele -c=green,blue \"npm run dev:vue\" \"npm run dev:ele\"",
+    "build": "npm run build:vue && npm run build:ele && electron-builder --mac --win",
+    "dev:vue": "vite",
+    "dev:ele": "node script/build --env=development --watch",
+    "build:vue": "vite build",
+    "build:ele": "node script/build --env=production"
   },
-  "dependencies": {
-    "vue": "^3.0.0"
+  "build": {
+    "files": [
+      "!node_modules",
+      "dist/**"
+    ],
+    "mac": {
+      "icon": "build/icons/icon.icns",
+      "artifactName": "${productName}_setup_${version}.${ext}",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "icon": "build/icons/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}_setup_${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false
+    }
   },
   "devDependencies": {
-    "vite": "^1.0.0-rc.4",
-    "@vue/compiler-sfc": "^3.0.0"
+    "@rollup/plugin-alias": "^3.1.1",
+    "@rollup/plugin-commonjs": "^15.1.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@vue/compiler-sfc": "^3.0.2",
+    "chalk": "^4.1.0",
+    "concurrently": "^5.3.0",
+    "dotenv": "^8.2.0",
+    "electron": "^10.1.5",
+    "electron-builder": "^22.9.1",
+    "electron-connect": "^0.6.3",
+    "electron-is-dev": "^1.2.0",
+    "ora": "^5.1.0",
+    "rollup-plugin-esbuild": "^2.5.2",
+    "vite": "^1.0.0-rc.6",
+    "vue": "^3.0.2",
+    "wait-on": "^5.2.0"
   }
 }
