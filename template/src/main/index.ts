@@ -1,33 +1,27 @@
 
-
-import { join } from 'path'
+import { resolve } from 'path'
 import { app, BrowserWindow } from 'electron'
-import dotenv from 'dotenv'
-import isDev from 'electron-is-dev'
-import { format as formatUrl } from 'url'
 
-dotenv.config({ path: join(__dirname, '../../.env') })
+const isDev = process.env.NODE_ENV == 'dev'
 
 // 开发模式
-const makeDevelopmentMode = win => {
+const makeDevelopmentMode = (win: BrowserWindow) => {
   // vite 启动的服务器地址
-  win.loadURL(`http://localhost:${process.env.PORT}/`)
+  win.loadURL('http://localhost:3000/')
   // 打开开发者工具
   win.webContents.openDevTools()
 }
 
 // 生产模式
-const makeProductMode = win => {
-  win.loadURL(formatUrl({
-    pathname: join(__dirname, '../../dist/render/index.html'),
-    protocol: 'file',
-    slashes: true
-  }))
-  // 打开开发者工具
-  // win.webContents.openDevTools()
+const makeProductMode = (win: BrowserWindow) => {
+  const file = resolve(__dirname, '../../dist/render/index.html')
+  win.loadFile(file)
+
+  // // 打开开发者工具
+  win.webContents.openDevTools()
 }
 
-function createWindow () {
+function createWindow() {
   let win = new BrowserWindow({
     width: 800,
     height: 600,
@@ -35,15 +29,6 @@ function createWindow () {
       nodeIntegration: true,
       nodeIntegrationInWorker: true // 在WebWorkers中使用多线程Node.js
     }
-  })
-
-  // 当 window 被关闭，这个事件会被触发。
-  win.on('closed', () => {
-    // 取消引用 window 对象，如果你的应用支持多窗口的话，
-    // 通常会把多个 window 对象存放在一个数组里面，
-    // 与此同时，你应该删除相应的元素。
-    // 销毁相关对象
-    win = null
   })
 
   // 开发模式

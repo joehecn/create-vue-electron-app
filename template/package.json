@@ -1,14 +1,15 @@
 {
   "name": "vue-electron-app",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/main/build.js",
   "scripts": {
-    "dev": "concurrently -n=vue,ele -c=green,blue \"npm run dev:vue\" \"npm run dev:ele\"",
-    "build": "npm run build:vue && npm run build:ele && electron-builder --mac --win",
-    "dev:vue": "vite",
-    "dev:ele": "node script/build --env=development --watch",
-    "build:vue": "vite build",
-    "build:ele": "node script/build --env=production"
+    "dev": "NODE_ENV=dev concurrently -n=render,main -c=green,blue \"npm run dev:render\" \"npm run dev:main\"",
+    "build": "npm run build:rm && npm run build:render && npm run build:main && electron-builder --mac --win",
+    "dev:render": "vite",
+    "dev:main": "node script/dev",
+    "build:rm": "rm -rf dist",
+    "build:render": "vite build",
+    "build:main": "node script/build"
   },
   "build": {
     "files": [
@@ -41,23 +42,22 @@
       "deleteAppDataOnUninstall": false
     }
   },
+  "dependencies": {
+    "vue": "^3.0.2",
+    "vue-router": "^4.0.0-rc.1"
+  },
   "devDependencies": {
-    "@rollup/plugin-alias": "^3.1.1",
-    "@rollup/plugin-commonjs": "^15.1.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^9.0.0",
     "@vue/compiler-sfc": "^3.0.2",
     "chalk": "^4.1.0",
     "concurrently": "^5.3.0",
-    "dotenv": "^8.2.0",
     "electron": "^10.1.5",
     "electron-builder": "^22.9.1",
     "electron-connect": "^0.6.3",
-    "electron-is-dev": "^1.2.0",
     "ora": "^5.1.0",
+    "rollup": "^2.32.1",
     "rollup-plugin-esbuild": "^2.5.2",
-    "vite": "^1.0.0-rc.6",
-    "vue": "^3.0.2",
+    "sass": "^1.27.0",
+    "vite": "^1.0.0-rc.8",
     "wait-on": "^5.2.0"
   }
 }
