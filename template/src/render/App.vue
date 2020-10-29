@@ -1,24 +1,52 @@
-<!--
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3.0 + Vite" />
+  <el-container class="app-container">
+    <el-header class="app-header">Hello Vue 3.0</el-header>
+    <el-container class="app-body">
+      <el-aside width="80px" class="app-aside">
+        <router-link to="/">Home</router-link>
+        <router-link to="/about">About</router-link>
+      </el-aside>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+    </el-container>
+    <el-footer class="app-footer">Power by Joe</el-footer>
+  </el-container>
 </template>
 
-<script lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+<style lang="scss" scoped>
+.app-container {
+  height: 100%;
+}
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+.app-header {
+  background: #ddd;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.app-aside {
+  background: #eee;
+  width: 50px;
+
+  a {
+    color: #999;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+  a.router-link-active {
+    background: #ddd;
   }
 }
-</script>
--->
-<template>
-  <router-link to="/">Go to Home</router-link>
-  <br>
-  <router-link to="/about">Go to About</router-link>
-  <br>
-  <router-view></router-view>
-</template>
+
+.app-footer {
+  background: #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
