@@ -1,11 +1,18 @@
-import ElementPlus from 'element-plus'
-import 'element-plus/lib/theme-chalk/index.css'
+
 import { createApp } from 'vue'
 import App from './App.vue'
+import worker from './worker/index'
+import ElementPlus from 'element-plus'
 import router from './router'
+import 'element-plus/lib/theme-chalk/index.css'
 import './index.scss'
 
-createApp(App as any)
+const app = createApp(App as any)
+
+app.config.globalProperties.$$worker = worker
+
+app
   .use(ElementPlus)
   .use(router)
-  .mount('#app')
+
+window.vm = app.mount('#app')
